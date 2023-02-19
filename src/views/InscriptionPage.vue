@@ -23,7 +23,8 @@
                         <ion-item class="custom">
                             <ion-label position="stacked">Mot de passe</ion-label>
                             <br>
-                            <ion-input color="medium" type="password" max="20" placeholder="Mot de passe"></ion-input>
+                            <ion-input color="medium" type="password" max="20" placeholder="Mot de passe" @input="checkPasswordLength"></ion-input>
+                            <p v-if="password.length > 0 && password.length < 20">Le mot de passe doit contenir au moins 20 caractères.</p>
                         </ion-item>
                         <ion-item class="custom">
                             <ion-label position="stacked">Confirmation du mot de passe</ion-label>
@@ -44,13 +45,24 @@
 
 <script>
 import { arrowBackOutline } from 'ionicons/icons';
+import { ref } from 'vue';
 
 export default {
     name: "InscriptionPage",
     setup() {
+
+        const password = ref('');
+
+        const checkPasswordLength = () => {
+            if (password.value.length > 20) {
+                password.value = password.value.slice(0, 20);
+            }
+        };
+
         return {
             arrowBackOutline,
-            password: ""
+            password: "",
+            checkPasswordLength
         }
     },
     methods: {
