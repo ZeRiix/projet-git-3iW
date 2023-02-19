@@ -28,7 +28,7 @@
                         <ion-item class="custom">
                             <ion-label position="stacked">Confirmation du mot de passe</ion-label>
                             <br>
-                            <ion-input color="medium" type="password" placeholder="Confirmer mot de passe"></ion-input>
+                            <ion-input color="medium" type="password" v-model="password" placeholder="Confirmer mot de passe"></ion-input>
                         </ion-item>
                     </ion-list>
                 </div>
@@ -49,7 +49,22 @@ export default {
     name: "InscriptionPage",
     setup() {
         return {
-            arrowBackOutline
+            arrowBackOutline,
+            password: ""
+        }
+    },
+    methods: {
+        togglePasswordVisibility() {
+            const passwordInput = document.getElementById("password");
+            const passwordToggle = document.getElementById("password-toggle");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggle.innerText = "Cacher";
+            } else {
+                passwordInput.type = "password";
+                passwordToggle.innerText = "Afficher";
+            }
         }
     }
 }
