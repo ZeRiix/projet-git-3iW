@@ -19,7 +19,7 @@
             </ion-item>
             <ion-item class="custom">
               <ion-label class="large-label" position="stacked">Mot de passe</ion-label>
-              <ion-input class="small-input" color="medium" type="password" placeholder="Mot de passe"></ion-input>
+              <ion-input class="small-input" id="password" type="password" v-model="password" color="medium" placeholder="Mot de passe"></ion-input>
             </ion-item>
             <ion-item class="toggle-input">
               <ion-label class="small-label" position="stacked">Mémoriser</ion-label>
@@ -54,7 +54,22 @@ export default defineComponent({
   },
   data: function () {
     return {
-      logo: logo
+      logo: logo,
+      password: ""
+    }
+  },
+  methods: {
+    togglePasswordVisibility() {
+      const passwordInput = document.getElementById("password");
+      const passwordToggle = document.getElementById("password-toggle");
+
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordToggle.innerText = "Cacher";
+      } else {
+        passwordInput.type = "password";
+        passwordToggle.innerText = "Afficher";
+      }
     }
   }
 });
