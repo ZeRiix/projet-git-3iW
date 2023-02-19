@@ -20,15 +20,28 @@
             <ion-text color="success">Rejoindre</ion-text>
           </ion-button>
         </ion-card>
+        <button @click="likeEvent">{{ event.likes }} Likes</button>
+
+        <h3>Ajouter un commentaire</h3>
+        <form @submit.prevent="addComment">
+          <label for="comment">Commentaire:</label>
+          <textarea id="comment" v-model="newComment"></textarea>
+          <button type="submit">Ajouter</button>
+        </form>
+
+        <h3>Commentaires</h3>
+        <ul>
+          <li v-for="comment in event.comments" :key="comment.id">{{ comment.text }}</li>
+        </ul>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
 import axios from 'axios';
-import { ref } from 'vue';
+import {ref} from 'vue';
 import {
   IonContent,
   IonPage,
@@ -48,7 +61,30 @@ import HeaderComponent from "@/components/current/HeaderComponent.vue";
 
 export default defineComponent({
   name: "HomePage",
-  components: { HeaderComponent, IonPage, IonContent, IonBadge },
+  components: {HeaderComponent, IonPage, IonContent, IonBadge},
+  data() {
+    return {
+      event: {
+        title: "Mon évènement",
+        description: "Description de l'évènement",
+        likes: 0,
+        comments: [],
+      },
+      newComment: "",
+    };
+  },
+  methods: {
+    likeEvent() {
+      this.event.likes++;
+    },
+    addComment() {
+      if (this.newComment) {
+        const newComment = {id: Date.now(), text: this.newComment};
+        this.event.comments.push(newComment);
+        this.newComment = "";
+      }
+    },
+  },
   setup() {
     const name = ref('');
     const email = ref('');
@@ -75,7 +111,7 @@ export default defineComponent({
       }
     };
 
-    return { name, email, registerForEvent };
+    return {name, email, registerForEvent};
   },
 });
 </script>
