@@ -26,7 +26,9 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue';
+import { defineComponent } from 'vue';
+import axios from 'axios';
+import { ref } from 'vue';
 import {
   IonContent,
   IonPage,
@@ -46,7 +48,35 @@ import HeaderComponent from "@/components/current/HeaderComponent.vue";
 
 export default defineComponent({
   name: "HomePage",
-  components: {HeaderComponent, IonPage, IonContent, IonBadge}
+  components: { HeaderComponent, IonPage, IonContent, IonBadge },
+  setup() {
+    const name = ref('');
+    const email = ref('');
+
+    const registerForEvent = async () => {
+      try {
+        // Envoyer les données d'inscription à l'API
+        const response = await axios.post('/api/register', {
+          name: name.value,
+          email: email.value,
+          eventId: 'ID_de_l_evenement',
+        });
+
+        // Créer une session de paiement avec Stripe
+        const session = await axios.post('/api/create-payment-session', {
+          priceId: 'ID_du_prix',
+          customerId: response.data.customerId,
+        });
+
+        // Rediriger l'utilisateur vers la page de paiement de Stripe
+        window.location.href = session.data.url;
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    return { name, email, registerForEvent };
+  },
 });
 </script>
 
