@@ -23,7 +23,7 @@
                         <ion-item class="custom">
                             <ion-label position="stacked">Mot de passe</ion-label>
                             <br>
-                            <ion-input color="medium" type="password" placeholder="Mot de passe"></ion-input>
+                            <ion-input color="medium" type="password" max="20" placeholder="Mot de passe"></ion-input>
                         </ion-item>
                         <ion-item class="custom">
                             <ion-label position="stacked">Confirmation du mot de passe</ion-label>
