@@ -82,4 +82,42 @@ export default defineComponent({
 ion-text {
   text-transform: none;
 }
+
+@media screen and (max-width: 600px) {
+  .top ion-text:first-child {
+    font-size: 24px;
+  }
+
+  .top ion-text:last-child {
+    font-size: 12px;
+  }
+
+  .container {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+  }
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  ion-text {
+    text-transform: none;
+  }
+
+}
+
 </style>
